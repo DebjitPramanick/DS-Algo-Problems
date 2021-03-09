@@ -20,8 +20,8 @@ average of the two middle values. (Wikipedia)
 - Step 1: Get the size of expenditure array
 - Step 2: Create an freq array of size (no. of expenditure input + 1)
 - Step 3: Create for loop and add the frequencies of each expenditure in freq array
-- Step 4: When for loop index will be <= number of days given,
-- Check if current expenditure is >= median of expenditure of last input days
+- Step 4: When for loop index will be <= number of days given, check if current expenditure is >= median of expenditure of last input days
+  [ To get median use counting sort ]
 - Step 5: If Step 4 is true increase number of notifications
 - Step 6: Then decrease freq array size by 1
 - Step 7: Then add the frequency of current expenditure
