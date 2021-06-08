@@ -96,8 +96,7 @@ void adjList(int n, int m)
 
 int main()
 {
-    cout << "Traversal of graph: "
-         << "\n";
+    cout << "Traversal of graph: "<< "\n";
 
     int n, m;
     cout << "Enter value of n (no. of nodes): ";
