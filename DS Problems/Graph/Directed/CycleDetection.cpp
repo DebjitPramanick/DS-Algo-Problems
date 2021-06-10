@@ -1,25 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-bool checkCycleDFS(int node, int prev, vector<int> adj[], vector<int> &vis){
+bool checkCycleDFS(int node, vector<int> adj[], vector<int> &vis, vector<int> &dfsVis){
     vis[node] = 1;
+    dfsVis[node] = 1;
     for(auto it: adj[node]){
         if(vis[it] == 0){
-            if(checkCycleDFS(it, node, adj, vis)) return true;
+            if(checkCycleDFS(it, adj, vis, dfsVis)) return true;
         }
-        else if(it != prev) return true;
+        else if(dfsVis[it]) return true;
     }
-
+    dfsVis[node] = 0;
     return false;
 }
 
 bool isCycle(int n, vector<int> adj[]){
-    vector<int> vis(n+1, 0);
+    vector<int> vis(n, 0), dfsVis(n, 0);
 
     for(int i=1;i<=n; i++){
         if(!vis[i]){
-            if(checkCycleDFS(i, -1, adj, vis)) return true;
+            if(checkCycleDFS(i, adj, vis, dfsVis)) return true;
         }
     }
 
@@ -33,11 +33,15 @@ void adjList(int n, int m){
         int u, v;
         cin >> u >> v;
         adj[u].push_back(v);
-        adj[v].push_back(u);
     } 
 
     bool cycle =  isCycle(n, adj);
-    cout << cycle;
+    if(cycle){
+        cout<<"Graph is cyclic.";
+    }
+    else{
+        cout<<"Graph is not cyclic.";
+    }
 }
 
 int main(){

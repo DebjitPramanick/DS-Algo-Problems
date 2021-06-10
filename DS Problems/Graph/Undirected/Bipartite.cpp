@@ -2,6 +2,19 @@
 using namespace std;
 
 
+bool bipartiteDFS(int node, vector<int> adj[], int color[]){
+    if(color[node] == -1) color[node] = 1;
+    for(auto it: adj[node]){
+        if(color[it] == -1){
+            color[it] = 1 - color[node];
+            if(!bipartiteDFS(it, adj, color)) return false;
+        }
+        else if(color[it] == color[node]) return false;
+    }
+    return true;
+}
+
+
 bool bipartiteBFS(int node, vector<int> adj[], int color[]){
     queue<int> q;
     q.push(node);
@@ -29,7 +42,7 @@ bool isBipartite(int n, vector<int> adj[]){
     memset(color, -1, sizeof color);
     for(int i=1;i<=n;i++){
         if(color[i]==-1){
-            if(!bipartiteBFS(i, adj, color)) return false;
+            if(!bipartiteDFS(i, adj, color)) return false;
         }
     }
     return true;
