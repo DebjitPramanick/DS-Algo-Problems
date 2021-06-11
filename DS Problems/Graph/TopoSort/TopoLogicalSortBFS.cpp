@@ -1,9 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool checkUsingTopoSort(int n, vector<int> adj[]){
+void topoSort(int n, vector<int> adj[]){
     queue<int> q;
     vector<int> indegree(n+1, 0);
+
+    // Filling indegree array with node's indegrees
 
     for(int i=1;i<=n;i++){
         for(auto it: adj[i]){
@@ -17,12 +19,12 @@ bool checkUsingTopoSort(int n, vector<int> adj[]){
         }
     }
 
-    int cnt = 0;
+    vector<int> topo;
 
     while(!q.empty()){
         int node = q.front();
         q.pop();
-        cnt++;
+        topo.push_back(node);
 
         for(auto it: adj[node]){
             indegree[it]--;
@@ -31,14 +33,9 @@ bool checkUsingTopoSort(int n, vector<int> adj[]){
             }
         }
     }
-
-    if(cnt == n) return false;
-    return true;
-}
-
-bool isCycle(int n, vector<int> adj[]){
-    if(!checkUsingTopoSort(n, adj)) return false;
-    return true;
+    for(auto it: topo){
+        cout<<it<<" ";
+    }
 }
 
 void adjList(int n, int m){
@@ -50,13 +47,8 @@ void adjList(int n, int m){
         adj[u].push_back(v);
     } 
 
-    bool cycle =  isCycle(n, adj);
-    if(cycle){
-        cout<<"Graph is cyclic.";
-    }
-    else{
-        cout<<"Graph is not cyclic.";
-    }
+    cout<<"After appyling topological sort: ";
+    topoSort(n, adj);
 }
 
 int main(){
