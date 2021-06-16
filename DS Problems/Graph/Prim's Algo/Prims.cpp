@@ -29,6 +29,7 @@ void findMSTPrim(int n, vector<pair<int, int>> adj[])
         mstSet[u] = true;
 
         // Finding the adjacent nodes with smaller edge weight
+        
 
         for (auto it : adj[u])
         {
