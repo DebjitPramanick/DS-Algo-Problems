@@ -35,8 +35,10 @@ void findMSTPrim(int n, vector<pair<int, int>> adj[])
             if (mstSet[v] == false && wt < key[v])
             {
                 parent[v] = u;
-                pq.push({key[v], v});
                 key[v] = wt;
+                if(key[v]=wt){
+                    pq.push({key[v], v});
+                }
             }
         }
     }
