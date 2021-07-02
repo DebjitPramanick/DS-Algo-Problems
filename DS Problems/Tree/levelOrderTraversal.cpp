@@ -7,7 +7,7 @@ struct Node{
     Node *right;
 };
 
-Node *root, *newnode, *temp;
+Node *root, *newnode, *temp, *key, *last;
 
 class Tree{
 public:
@@ -31,12 +31,95 @@ public:
             q.pop();
             if (temp->left != NULL)
                 q.push(temp->left);
-            else if (temp->left == NULL)
+            else if (temp->left == NULL){
                 temp->left = createNode(v);
-            else if (temp->right != NULL)
+                return;
+            }
+            if (temp->right != NULL)
                 q.push(temp->right);
-            else
+            else{
                 temp->right = createNode(v);
+                return;
+            }
+        }
+    }
+
+    void deleteDeepest(Node *node){
+        queue<Node *> q;
+        q.push(root);
+
+        while(!q.empty()){
+            Node *cur = q.front();
+            q.pop();
+
+            if(cur == node) {
+                cur = NULL;
+                delete(cur);
+                return;
+            };
+            if(cur->left) {
+                if(cur->left == node){
+                    cur->left = NULL;
+                    delete(cur->left);
+                    return;
+                }
+                else{
+                    q.push(cur->left);
+                }
+            };
+            if(cur->right) {
+                if(cur->right == node){
+                    cur->right = NULL;
+                    delete(cur->right);
+                    return;
+                }
+                else{
+                    q.push(cur->right);
+                }
+            };
+        }
+    }
+
+    void deleteNode(int v){ // Double traversal
+        if(root == NULL) return;
+        queue<Node *> q;
+
+        q.push(root);
+        while(!q.empty()){
+            key = q.front();
+            q.pop();
+
+            if(key->data == v) temp = key;
+            if(key->left) q.push(key->left);
+            if(key->right) q.push(key->right);
+        }
+
+        if(temp){
+            int s = key->data;
+            temp->data = s;
+            key = NULL;
+            delete(key);
+        }
+    }
+
+    void deleteNodeSingle(int v){ // Single traversal
+        if(root == NULL) return;
+        queue<Node *> q;
+
+        q.push(root);
+        while(!q.empty()){
+            key = q.front();
+            q.pop();
+
+            if(key->data == v) temp = key;
+            if(key->left) q.push(key->left);
+            if(key->right) q.push(key->right);
+        }
+
+        if(temp){
+            int s = key->data;
+            deleteDeepest(key);
+            temp->data = s;
         }
     }
 
@@ -60,7 +143,7 @@ public:
 
 int main(){
     Tree t;
-    int n;
+    int n, del;
     cout << "Enter no. of nodes: ";
     cin >> n;
     for (int i = 0; i < n; i++){
@@ -70,5 +153,10 @@ int main(){
         t.insertNode(val);
     }
 
+    t.levelOrder();
+
+    cout << "Enter data to delete: ";
+    cin >> del;
+    t.deleteNodeSingle(del);
     t.levelOrder();
 }
