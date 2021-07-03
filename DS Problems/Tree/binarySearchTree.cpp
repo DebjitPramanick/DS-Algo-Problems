@@ -82,6 +82,21 @@ public:
             cur = cur->right;
         }
     }
+
+    void search(int v){
+        if(root == NULL) return;
+        Node *cur = root;
+        while(cur){
+            if(cur->data == v){
+                cout<<"Data found."<<endl;
+                return;
+            }
+            if(v<cur->data) cur = cur->left;
+            else cur = cur->right;
+        }
+        cout<<"Data not found."<<endl;
+    }
+
 };
 
 int main()
@@ -99,4 +114,8 @@ int main()
     }
 
     t.inorder();
+    cout<<endl;
+    cout << "Enter data to search: ";
+    cin >> n;
+    t.search(n);
 }
