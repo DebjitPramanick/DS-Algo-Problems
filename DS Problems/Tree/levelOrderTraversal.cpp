@@ -96,9 +96,8 @@ public:
 
         if(temp){
             int s = key->data;
+            deleteDeepest(key);
             temp->data = s;
-            key = NULL;
-            delete(key);
         }
     }
 
@@ -118,8 +117,9 @@ public:
 
         if(temp){
             int s = key->data;
-            deleteDeepest(key);
             temp->data = s;
+            key = NULL;
+            delete(key);
         }
     }
 
