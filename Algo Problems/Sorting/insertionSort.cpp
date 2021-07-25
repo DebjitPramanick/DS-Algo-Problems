@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Key -> Check order of of each element in unsorted array and if order is wrong 
+// insert the element in unsorted array
+
 void insertionSort(int a[], int n){
     for (int i = 1; i < n; i++){
         int cur = a[i];
