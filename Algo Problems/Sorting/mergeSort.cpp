@@ -14,7 +14,7 @@ void merge(int a[], int l, int mid, int r){
     for(int i=0;i<n1;i++) m[i] = a[l+i];
     for(int i=0;i<n2;i++) p[i] = a[mid+1+i];
 
-    int i=0, j=0, k=l;
+    int i=0, j=0, k=l; 
 
     while(i<n1 && j<n2){
         if(m[i] < p[j]){
