@@ -12,22 +12,20 @@ string convert(string s){
     stack<char> st;
     string res = "";
 
-    reverse(s.begin(), s.end());
-    for(int i=0;i<s.size();i++){
-        if(s[i]=='(') s[i] = ')';
-        else if(s[i]==')') s[i] = '(';
-    }
+    for (int i = 0; i < s.size(); i++){
+        if ((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z')) res += s[i];
 
-    for(int i=0;i<s.size();i++){
-        if(s[i]>='a'&&s[i]<'z') res+=s[i];
-        else if(s[i]=='(') st.push(s[i]); 
-        else if(s[i]==')'){
-            while(!st.empty() && st.top()!='('){
-                res+=st.top();
+        else if (s[i] == '(') st.push(s[i]);
+        
+        else if (s[i] == ')'){
+            while (!st.empty() && st.top() != '('){
+                char op = st.top();
+                res += op;
                 st.pop();
             }
-            if(!st.empty()) st.pop();
+            if (!st.empty()) st.pop();
         }
+
         else{
             while(!st.empty() && prec(st.top()) > prec(s[i])){
                 res+=st.top();
@@ -41,7 +39,7 @@ string convert(string s){
         res+=st.top();
         st.pop();
     }
-    reverse(res.begin(), res.end());
+
     return res;
 };
 
