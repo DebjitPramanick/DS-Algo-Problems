@@ -1,6 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// Key -> Select a pivot element and keep smaller elements before the pivot element and greater elements
+// after the pivot element. Then sort the smaller and greater elements again.
+
 int partition(int a[], int l, int r){
     int pivot = a[r];
     int i = l-1;
