@@ -19,7 +19,6 @@ void sortArr(int a[], int n){
 int binarySearch(int q, int a[], int n){
     sortArr(a,n);
     reverse(a, a+n);
-    for(int i=0;i<n;i++)cout<<a[i]<<" ";
     int s = 0;
     int e = n;
 
