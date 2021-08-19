@@ -4,25 +4,26 @@ using namespace std;
 // Searching in nearly sorted array
 
 /*
-Find floor of an element in sorted array
+Find ceil of an element in sorted array
 */
 
 int findFloor(int q, int a[], int n){
     int s = 0;
     int e = n;
-    int res = -1;
+    int res=-1;
 
     while(s<e){
+        cout<<s<<" "<<e<<" "<<res<<endl;
         int mid = (s+e)/2;
         if(a[mid]==q){
             res = mid;
             break;
         }
-        else if(a[mid]>q) e = mid-1;
-        else{
+        else if(a[mid]>q) {
             res = mid;
-            s = mid+1;
+            e = mid-1;
         }
+        else s = mid+1;
     }
 
     return res;
