@@ -2,6 +2,7 @@
 using namespace std;
 
 // Utils functions
+// Time complexity -> O(n)
 
 void display(int a[], int n){
     for(int i=0;i<n;i++){

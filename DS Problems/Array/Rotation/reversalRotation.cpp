@@ -2,6 +2,7 @@
 using namespace std;
 
 // Rotate array using reversal algo
+// Time complexity -> O(n)
 
 void display(int a[], int n){
     for(int i=0;i<n;i++){
