@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// Find number of rotations
 
 int findRotation(int a[], int n){
     int s = 0, e = n;
