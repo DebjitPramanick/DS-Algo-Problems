@@ -34,16 +34,17 @@ void rearrangeArray(int a[], int n){
 }
 
 void rearrangeArraySecond(int a[], int n){
-    int b[n], temp[n];
+    int b[n];
     copy(a, b, n);
 
     for(int i=0;i<n;i++) b[i]++; // Increment all values by 1, so that all elements can be made negative to mark them as visited
     for(int i=0;i<n;i++) {
         if(b[i] > 0) {
             int val = -(i+1); // The next value is determine using current index
-            int i = b[i]-1; // The next index is determined using current value
+            i = b[i]-1; // The next index is determined using current value
 
             while(b[i]>0){ // While all elements in cycle are not processed
+
                 int new_i = b[i]-1; // Store value at index as it is going to be used as next index
                 b[i] = val; // Update array
 
@@ -66,5 +67,5 @@ int main()
     int a[] = {1, 3, 0, 2};
     int n = sizeof(a) / sizeof(a[0]);
     int k = 5;
-    rearrangeArray(a, n);
+    rearrangeArraySecond(a, n);
 }
