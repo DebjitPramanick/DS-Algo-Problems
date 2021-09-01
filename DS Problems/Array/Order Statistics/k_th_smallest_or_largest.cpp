@@ -52,7 +52,7 @@ int partition(int a[], int l, int r){
     return i;
 }
 
-int findKthElementV2(int b[], int l, int r, int k){ // Using quicksort
+int findKthElementV2(int b[], int l, int r, int k){ // Using quicksort O(n2)
 
     if(k>0 and k<=(r-l+1)){
         int pos = partition(b, l, r);
