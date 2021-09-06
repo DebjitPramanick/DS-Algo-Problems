@@ -1,11 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Given an array of n elements, where each element is at 
-// most k away from its target position, devise an algorithm 
-// that sorts in O(n log k) time. For example, let us consider 
-// k is 2, an element at index 7 in the sorted array, can be 
-// at indexes 5, 6, 7, 8, 9 in the given array.
+// Given an array of integers, print the array in such a way 
+// that the first element is first maximum and second element 
+// is first minimum and so on.
 
 void display(int a[], int n)
 {
@@ -32,16 +30,22 @@ void insertionsort(int a[], int n){
     }
 }
 
-void sortNearlySorted(int a[], int n){
+void sortDiff(int a[], int n, int d){
     int b[n];
     copy(a,b,n);
-    insertionsort(b, n);
-    display(b, n);
+
+    stable_sort(b, b+n, [d](int a, int b){
+        if(abs(a-d)<abs(b-d)) return true;
+        else return false;
+    });
+    
+    display(b,n);
 }
 
 int main()
 {
-    int a[] = {6, 5, 3, 2, 8, 10, 9};
+    int a[] = {10, 5, 3, 9, 2};
     int n = sizeof(a) / sizeof(a[0]);
-    sortNearlySorted(a, n);
+    int dif = 7;
+    sortDiff(a, n, dif);
 }
