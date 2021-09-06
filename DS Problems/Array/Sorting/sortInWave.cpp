@@ -40,7 +40,7 @@ void sortInWave(int a[], int n){ // O(nlogn)
     display(b, n);
 }
 
-void sortInWaveSingle(int a[], int n){
+void sortInWaveSingle(int a[], int n){ // O(n)
     int b[n];
     copy(a,b,n);
 
