@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Given two sorted arrays, find their union and intersection.
+// Merge in constant space complexity.
 
 void display(int a[], int n)
 {
