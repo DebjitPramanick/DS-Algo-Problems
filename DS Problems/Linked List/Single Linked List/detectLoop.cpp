@@ -123,14 +123,12 @@ class LinkedList {
             cout<<"There is no loop in list."<<endl;
         }
 
-        void detectLoop2(){ // Hashmap approach
+        void detectLoop2(){ // Fast-slow pointer approach
             if(!head) {
                 cout<<"List is empty"<<endl;
                 return;
             }
             Node *fast = head, *slow = head;
-            // fast = fast->next->next;
-            // slow = slow->next;
 
             while(slow and fast and fast->next){
                 fast = fast->next->next;
@@ -153,7 +151,7 @@ int main(){
     }
 
     l.display();
-    // l.createLoop();
+    l.createLoop();
     l.detectLoop1();
     l.detectLoop2();
 }
