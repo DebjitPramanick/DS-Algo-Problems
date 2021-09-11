@@ -99,6 +99,20 @@ class LinkedList {
             mergeSort(&head);
         }
 
+        void reomveDuplicates(){
+            if(!head || !head->next) return;
+            Node *temp = head;
+            while(temp and temp->next){
+                int cur = temp->val;
+                if(temp->next->val == cur){
+                    Node* fr = temp->next;
+                    temp->next = fr->next;
+                    free(fr);
+                }
+                else temp = temp->next;
+            }
+        }
+
 };
 
 int main(){
@@ -112,9 +126,12 @@ int main(){
     l.insertNode(32);
     l.insertNode(20);
     l.insertNode(11);
+    l.insertNode(11);
 
     l.display();
     l.sort();
+    l.display();
+    l.reomveDuplicates();
     l.display();
 }
 
