@@ -18,7 +18,7 @@ class LinkedList {
         LinkedList(){
             head = NULL;
         }
-        
+
         void insertNode(int v){
             Node *newNode = new Node();
             newNode->val = v;
@@ -36,6 +36,46 @@ class LinkedList {
             }
         }
 
+        void deleteNode(int v){
+            if(!head){
+                cout<<"List is empty."<<endl;
+                return;
+            }
+            Node *temp = head;
+            if(temp->val== v){
+                head = temp->next;
+                temp->next = NULL;
+                head->prev = NULL;
+                free(temp);
+                cout<<"List item deleted."<<endl;
+                return;
+            }
+            temp = temp->next;
+            while(temp){
+                if(temp->val == v){
+                    temp->prev->next = temp->next;
+                    temp->next->prev = temp->prev;
+                    temp->next = NULL;
+                    free(temp);
+                    cout<<"List item deleted."<<endl;
+                    return;
+                }
+                temp = temp->next;
+            }
+        }
+
+        int searchNode(int v){
+            if(!head) return -1;
+            Node *temp = head;
+            int i = 0;
+            while(temp){
+                i++;
+                if(temp->val== v) break;
+                temp = temp->next;
+            }
+            return i;
+        }
+
         void display(){
             if(!head) {
                 cout<<"List is empty."<<endl;
@@ -51,36 +91,6 @@ class LinkedList {
             cout<<endl<<"Node count: "<<i<<endl;
         }
 
-        Node* reverseUtil(Node *hd, int k){
-            if(!hd) return NULL;
-
-            hd->prev = NULL;
-            Node *temp, *cur = hd, *nh;
-            int count = 0;
-            while(cur and count<k){
-                nh = cur;
-                temp = cur->prev;
-                cur->prev = cur->next;
-                cur->next = temp;
-                cur = cur->prev;
-                count++;
-            }
-
-            if(count>=k){
-                Node *rest = reverseUtil(cur, k);
-                hd->next = rest;
-                if(rest) rest->prev = head;
-            }
-
-            return nh;
-        }
-
-        void reverseInGroup(int k){
-            if(!head || !head->next) return;
-
-            head = reverseUtil(head, k);
-        }
-
 };
 
 int main(){
@@ -90,7 +100,7 @@ int main(){
     }
 
     l.display();
-    l.reverseInGroup(2);
+    l.deleteNode(20);
     l.display();
+    cout<<"Search data: "<<l.searchNode(15)<<endl;
 }
-
