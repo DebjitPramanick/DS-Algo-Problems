@@ -1,52 +1,66 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int prec(char c){
-    if (c == '^') return 3;
-    else if (c == '/' || c == '*') return 2;
-    else if (c == '+' || c == '-') return 1;
-    else return -1;
-}
-
-string convert(string s){
-    stack<char> st;
+class Solution
+{
+    stack<int> s;
     string res = "";
 
-    reverse(s.begin(), s.end());
-    for(int i=0;i<s.size();i++){
-        if(s[i]=='(') s[i] = ')';
-        else if(s[i]==')') s[i] = '(';
+public:
+    int prec(char c)
+    {
+        if (c == '^')
+            return 3;
+        else if (c == '*' || c == '/')
+            return 2;
+        else if (c == '+' || c == '-')
+            return 1;
+        return -1;
     }
 
-    for(int i=0;i<s.size();i++){
-        if(s[i]>='a'&&s[i]<'z') res+=s[i];
-        else if(s[i]=='(') st.push(s[i]); 
-        else if(s[i]==')'){
-            while(!st.empty() && st.top()!='('){
-                res+=st.top();
-                st.pop();
-            }
-            if(!st.empty()) st.pop();
-        }
-        else{
-            while(!st.empty() && prec(st.top()) > prec(s[i])){
-                res+=st.top();
-                st.pop();
-            }
-            st.push(s[i]);
-        }
-    }
+    void convert(string exp)
+    {
+        if (exp.length() == 0)
+            return;
 
-    while(!st.empty()){
-        res+=st.top();
-        st.pop();
+        for (int i = 0; i < exp.length(); i++)
+        {
+            if (exp[i] >= 'a' and exp[i] < 'z')
+                res += exp[i];
+            else if (exp[i] == '(')
+                s.push(exp[i]);
+            else if (exp[i] == ')')
+            {
+                while (s.top() != '(')
+                {
+                    res += s.top();
+                    s.pop();
+                }
+                s.pop();
+            }
+            else
+            {
+                while (!s.empty() and prec(s.top()) >= prec(exp[i]))
+                {
+                    res += s.top();
+                    s.pop();
+                }
+                s.push(exp[i]);
+            }
+        }
+
+        while (!s.empty())
+        {
+            res += s.top();
+            s.pop();
+        }
+
+        cout << "Postfix is: " << res << endl;
     }
-    reverse(res.begin(), res.end());
-    return res;
 };
 
-int main(){
-    string res = convert("(a-b/c)*(a/k-l)");
-    cout << res;
-    return 0;
+int main()
+{
+    Solution s;
+    s.convert("a+b*(c^d-e)^(f+g*h)-i");
 }
