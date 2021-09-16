@@ -8,26 +8,37 @@ int prec(char c){
     else return -1;
 }
 
-string convert(string s){
+void convert(string s){
     stack<char> st;
     string res = "";
 
+    reverse(s.begin(), s.end());
+
+    for(int i=0;i<s.length();i++){
+        if(s[i] == '(') {
+            s[i] = ')';
+            i++;
+        }
+        else if(s[i] == ')') {
+            s[i] = '(';
+            i++;
+        };
+    }
+
+    s = '('+s+')';
+
     for (int i = 0; i < s.size(); i++){
         if ((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z')) res += s[i];
-
-        else if (s[i] == '(') st.push(s[i]);
-        
-        else if (s[i] == ')'){
-            while (!st.empty() && st.top() != '('){
-                char op = st.top();
-                res += op;
+        else if(s[i] == '(') st.push('(');
+        else if(s[i] == ')') {
+            while(st.top()!='('){
+                res+=st.top();
                 st.pop();
             }
-            if (!st.empty()) st.pop();
+            st.pop();
         }
-
         else{
-            while(!st.empty() && prec(st.top()) > prec(s[i])){
+            while(!st.empty() and prec(s[i])<=prec(st.top())){
                 res+=st.top();
                 st.pop();
             }
@@ -35,16 +46,14 @@ string convert(string s){
         }
     }
 
-    while(!st.empty()){
-        res+=st.top();
-        st.pop();
-    }
+    reverse(res.begin(), res.end());
 
-    return res;
+    cout<<"Prefix expression is: "<<res<<endl;
+
+    
 };
 
 int main(){
-    string res = convert("(a-b/c)*(a/k-l)");
-    cout << res;
+    convert("(a-b/c)*(a/k-l)");
     return 0;
 }
