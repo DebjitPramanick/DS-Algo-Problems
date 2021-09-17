@@ -1,26 +1,51 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isBalanced(string s){
-    stack<char> st;
-    for(int i=0;i<s.size();i++){
-        if(s[i]=='(' || s[i]=='{' || s[i]=='[') st.push(s[i]);
-        else if(s[i]==')'){
-            if(st.top() == '(') st.pop();
+bool isBalanced(string expr)
+{
+    stack<char> s;
+    char x;
+
+    for (int i = 0; i < expr.length(); i++)
+    {
+        if (expr[i] == '(' || expr[i] == '[' || expr[i] == '{')
+        {
+            s.push(expr[i]);
+            continue;
         }
-        else if(s[i]=='}'){
-            if(st.top() == '{') st.pop();
-        }
-        else{
-            if(st.top() == '[') st.pop();
+
+        if (s.empty())
+            return false;
+
+        switch (expr[i])
+        {
+        case ')':
+            x = s.top();
+            s.pop();
+            if (x == '{' || x == '[')
+                return false;
+            break;
+
+        case '}':
+            x = s.top();
+            s.pop();
+            if (x == '(' || x == '[')
+                return false;
+            break;
+
+        case ']':
+            x = s.top();
+            s.pop();
+            if (x == '(' || x == '{')
+                return false;
+            break;
         }
     }
-
-    if(!st.empty()) return false;
-    return true;
+    return (s.empty());
 }
 
-int main(){
+int main()
+{
     bool res = isBalanced("[({})]");
     cout << res;
     return 0;
