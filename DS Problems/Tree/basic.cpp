@@ -50,7 +50,7 @@ class Tree{
         }
     }
 
-    void display_DFS(){
+    void display_BFS(){
         queue<Node *> q;
         q.push(root);
 
