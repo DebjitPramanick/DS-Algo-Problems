@@ -155,7 +155,7 @@ int main(){
         t.insert((i+1)*3);
     }
 
-    t.display_DFS();
+    t.display_BFS();
     t.inorder(t.root);
     cout<<endl;
     t.preorder(t.root);
@@ -163,5 +163,5 @@ int main(){
     t.postorder(t.root);
     cout<<endl;
     t.deleteNode(18);
-    t.display_DFS();
+    t.display_BFS();
 }
