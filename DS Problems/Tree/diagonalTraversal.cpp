@@ -60,12 +60,11 @@ class Tree{
     }
 
     void diagonalTraversal(){
-        vector<int> ans;
 
         queue<Node*> q;
         Node* node = root;
         while(node){
-            ans.push_back(node->data);
+            cout<<node->data<<" ";
             if(node->left) q.push(node->left);
             if(node->right) node = node->right;
             else{
@@ -75,10 +74,6 @@ class Tree{
                 }
                 else node = NULL;
             }
-        }
-
-        for(auto it: ans){
-            cout<<it<<" ";
         }
     }
 
