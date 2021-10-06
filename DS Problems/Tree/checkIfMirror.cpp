@@ -70,6 +70,38 @@ bool check(Node *head1, Node *head2){
     and check(head1->left, head2->right));
 }
 
+bool check_iterative(Node *head1, Node *head2){
+    stack<Node*> s1, s2;
+
+    s1.push(head1);
+    s2.push(head2);
+
+    while(true){
+        while(head1 and head2){
+            if(head1->data != head2->data) return false;
+            s1.push(head1);
+            s2.push(head2);
+            head1 = head1->left;
+            head2 = head2->right;
+        }
+
+        if(!(!head1 && !head2)) return false;
+        if(!s1.empty() and !s2.empty()){
+            head1 = s1.top();
+            head2 = s2.top();
+
+            s1.pop();
+            s2.pop();
+
+            head1 = head1->right;
+            head2 = head2->left;
+        }
+        else break;
+    }
+
+    return true;
+}
+
 int main(){
     Tree t1(1);
     Tree t2(1);
@@ -92,4 +124,5 @@ int main(){
     cout<<endl;
     t2.inorder(t2.root);
     cout<<endl<<check(t1.root, t2.root);
+    cout<<endl<<check_iterative(t1.root, t2.root);
 }
