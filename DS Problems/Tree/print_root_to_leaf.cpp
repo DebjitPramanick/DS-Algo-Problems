@@ -1,9 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Given a binary tree and a node, print all
-// cousins of given node. Note that siblings
-// should not be printed.
+// Print root to leaf paths without using recursion
 
 struct Node
 {
