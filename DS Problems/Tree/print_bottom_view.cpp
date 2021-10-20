@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Top view of a binary tree is the set of nodes 
-// visible when the tree is viewed from the top. 
-// Given a binary tree, print the top view of it. 
+// Bottom view of a binary tree is the set of nodes 
+// visible when the tree is viewed from the bottom. 
+// Given a binary tree, print the bottom view of it. 
 // The output nodes can be printed in any order.
 
 struct Node
@@ -71,20 +71,29 @@ public:
         inorder(head->right);
     }
 
-    void displayTopView(){
-        queue<pair<Node *, int>> q;
+    void displayBottomView(){
+        queue<Node *> q;
         map<int, int> mp;
-        mp[0] = root->data;
-        q.push(make_pair(root, 0));
+        map<Node *, int> mpt;
+        int hd = 0;
+        mpt[root] = hd;
+        q.push(root);
 
         while(!q.empty()){
-            Node *fr = q.front().first;
-            int hd = q.front().second; // Horizontal distances of nodes from toppest node
+            Node *fr = q.front();
             q.pop();
+            hd = mpt[fr];
+            mp[hd] = fr->data;
 
-            if(mp.count(hd) == 0) mp[hd] = fr->data;
-            if(fr->left) q.push(make_pair(fr->left, hd-1));
-            if(fr->right) q.push(make_pair(fr->right, hd+1));
+            if(fr->left){
+                mpt[fr->left] = hd-1;
+                q.push(fr->left);
+            }
+
+            if(fr->right){
+                mpt[fr->right] = hd+1;
+                q.push(fr->right);
+            }
         }
 
         for(auto it: mp) cout<<it.second<<" ";
@@ -101,6 +110,6 @@ int main()
 
     t.inorder(t.root);
     cout << endl;
-    t.displayTopView();
+    t.displayBottomView();
 
 }
