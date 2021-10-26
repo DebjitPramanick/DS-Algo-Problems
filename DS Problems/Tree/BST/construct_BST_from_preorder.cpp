@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Construct BST from given Inorder and Postorder traversals
+// Construct BST from given Preorder traversals
 
 struct Node
 {
