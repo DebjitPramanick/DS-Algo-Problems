@@ -2,9 +2,7 @@
 using namespace std;
 
 /*
-Given values of two values n1 and n2 in a Binary Search Tree, 
-find the Lowest Common Ancestor (LCA). You may assume that 
-both the values exist in the tree. 
+Replace every element with the least greater element on its right
 */
 
 

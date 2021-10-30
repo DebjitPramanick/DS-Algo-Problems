@@ -2,7 +2,7 @@
 using namespace std;
 
 /*
-Convert binary tree into BST.
+Convert BST into Balanced BST.
 */
 
 
