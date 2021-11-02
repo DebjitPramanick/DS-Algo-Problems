@@ -36,8 +36,35 @@ bool checkUsingTopoSort(int n, vector<int> adj[]){
     return true;
 }
 
+bool checkCycleUtil(int i, vector<int> &vis, vector<int> &recStack, vector<int> adj[]){
+    vis[i] = 1;
+    recStack[i] = 1;
+
+    for(auto it: adj[i]){
+        if(!vis[it] && checkCycleUtil(it, vis, recStack, adj)) return true;
+        else if(recStack[it]) return true;
+    }
+
+    recStack[i] = false;
+    return false;
+}
+
+bool checkCycle(int n, vector<int> adj[]){
+    vector<int> vis(n+1, 0);
+    vector<int> recStack(n+1, 0);
+
+    for(int i=1;i<=n;i++){
+        if(!vis[i]){
+            if(checkCycleUtil(i, vis, recStack, adj)) return true;
+        }
+    }
+
+    return false;
+}
+
 bool isCycle(int n, vector<int> adj[]){
-    if(!checkUsingTopoSort(n, adj)) return false;
+    // if(!checkUsingTopoSort(n, adj)) return false;
+    if(!checkCycle(n, adj)) return false;
     return true;
 }
 
