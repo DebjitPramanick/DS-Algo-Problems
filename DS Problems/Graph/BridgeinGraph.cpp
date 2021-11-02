@@ -37,8 +37,8 @@ void createNodes(int n, int m){
         adj[v].push_back(u);
     }
 
-    vector<int> tin(n ,-1);
-    vector<int> low(n, -1);
+    vector<int> tin(n ,-1); // Array for storing time of insertions
+    vector<int> low(n, -1); // Array for storing lowest time of insertions for all adjacent nodes
     vector<int> vis(n, 0);
     int timer = 0;
 
