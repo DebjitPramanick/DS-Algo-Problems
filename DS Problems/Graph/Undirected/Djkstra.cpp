@@ -7,7 +7,7 @@ void findDjkstraPath(int n, vector<pair<int,int>> adj[]){
     cout<<"Enter source: ";
     cin>>source;
 
-    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq; // Min heap
     vector<int> dist(n+1, INT_MAX);
 
     dist[source] = 0;
