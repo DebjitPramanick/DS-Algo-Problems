@@ -1,7 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// Time complexity -> O(4a) [ a => Alpha] == Almost constant time complexity
+// Time complexity for finding parent -> O(4a) [ a => Alpha] == Almost constant time complexity
+// Actual time complexity -> O(nlogn)
+// Space complexity -> O(n)
 
 struct node
 {
