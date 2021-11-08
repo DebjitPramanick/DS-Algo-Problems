@@ -34,7 +34,7 @@ void colourGraph(vector<int> adj[], int n){
     for(int i=0;i<n;i++){
         for(auto it: adj[i]){
             if(colour[it]!=-1){ // If adjacent node is coloured
-                available[colour[it]] = 1;
+                available[colour[it]] = 1; // Mark colurs as already available in graph
             }
         }
 
