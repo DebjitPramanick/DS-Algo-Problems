@@ -9,14 +9,17 @@ the same.
 Solution:
 
 1. Use bottom up dynamic programming.
-2. Check if the total sum is odd or even. If odd return false.
-3. Create 2D DP array and each row should be of size sum/2
-4. Iterate the array from last element
-5. For each element, calculate results with including it and excluding it and store in dp
-6. Return result
+2. This problem can be solved using dynamic programming where 
+dp[i][j] = number of subsequences having product less than i 
+using first j terms of the array. Which can be obtained 
+by : number of subsequences using first j-1 terms + number of 
+subsequences that can be formed using j-th term.
+3. If the array element is greater than current product, then fill that cell with left cell's value
+4. Else find the other part of product and get value of dp[other part][left cell].
+5. Then add 1 to the value obtained and fill the cell with that.
 
-Time -> O(n*sum of els/2)
-Time -> O(n*sum of els/2)
+Time -> O(k*m)
+Time -> O(k*m)
 
 */
 
@@ -26,36 +29,32 @@ using namespace std;
 class Solution{
     public:
 
-    bool util(int n, vector<vector<int>> &dp, int sum, vector<int> S){
-        if(n == -1){
-            if(sum==0) return 1;
-            return 0;
-        }
-        if(sum<0) return 0;
-        if(sum==0) return 1;
-        if(dp[n][sum]!=-1) return dp[n][sum];
-        return dp[n][sum] = util(n-1, dp, sum-S[n], S) || util(n-1, dp, sum, S);
-    }
-
-    void solve(vector<int> S){
+    void solve(vector<int> S, int k){
         int m = S.size();
-        int sum = 0;
-        for(int i=0;i<m;i++) sum += S[i];
-        if(sum & 1) {
-            cout<<"The answer is "<<false<<endl;
-            return;
-        }
-        sum = sum/2;
-        vector<vector<int>> dp(m, vector<int> (sum+1, -1));
+        int dp[k+1][m+1];
+        memset(dp, 0, sizeof(dp));
 
-        bool ans = util(m-1, dp, sum, S);
+        for(int i=1;i<=k;i++){
+            for(int j=1;j<=m;j++){
+                // number of subsequence using j-1 terms
+                dp[i][j] = dp[i][j-1];
+
+                // if arr[j-1] > i it will surely make product greater
+                // thus it won't contribute then
+                if(S[j-1] <= i){
+                    dp[i][j] += dp[i/S[j-1]][j-1] + 1;
+                }
+            }
+        }
+
         
-        cout<<"The answer is "<<ans<<endl;
+        cout<<"The answer is "<<dp[k][m]<<endl;
     }
 };
 
 int main(){
-    vector<int> S = {1, 5, 11, 5};
+    vector<int> S = {1, 2, 3, 4};
+    int k = 10;
     Solution s;
-    s.solve(S);
+    s.solve(S, k);
 }
