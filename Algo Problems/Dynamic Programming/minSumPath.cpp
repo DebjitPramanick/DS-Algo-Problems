@@ -7,17 +7,6 @@ to bottom. Each step you may move to adjacent numbers on the row below.
 /*
 Solution:
 
-As the solution for a maximum number of cuts that can be made 
-in a given length depends on the maximum number of cuts previously 
-made in shorter lengths, this question could be solved by the 
-approach of Dynamic Programming. Suppose we are given a length 
-'l'. For finding the maximum number of cuts that can be made in 
-length 'l', find the number of cuts made in shorter previous 
-length 'l-p', 'l-q', 'l-r' lengths respectively. The required 
-answer would be the max(l-p,l-q,l-r)+1 as one more cut should be 
-needed after this to cut length 'l'. So for solving this problem 
-for a given length, find the maximum number of cuts that can be made 
-in lengths ranging from '1' to 'l'. 
 
 */
 
