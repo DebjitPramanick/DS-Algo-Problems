@@ -30,7 +30,7 @@ public:
 
         for(int i=1;i<N;i++){
             for(int j=0;j<i;j++){
-                if(dp[j]!=INT_MAX and Matrix[j]+j>=i){
+                if(dp[j]!=INT_MAX and Matrix[j]+j>=i){ // Check if j th position is reached or not and i can be reached from j
                     if(dp[j]+1 < dp[i]){
                         dp[i] = dp[j] + 1;
                     }
