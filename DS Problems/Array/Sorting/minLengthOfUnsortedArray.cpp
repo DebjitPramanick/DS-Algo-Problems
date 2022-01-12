@@ -25,7 +25,7 @@ bool checkIfSorted(int a[], int n){
     return true;
 }
 
-void findNumberOfTriangles(int a[], int n)
+void findMinLength(int a[], int n)
 {
     int p[n];
     copy(a, p, n);
@@ -77,5 +77,5 @@ int main()
 {
     int a[] = {10, 12, 20, 30, 25, 40, 32, 31, 35, 50, 60};
     int n = sizeof(a) / sizeof(a[0]);
-    findNumberOfTriangles(a, n);
+    findMinLength(a, n);
 }
