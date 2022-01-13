@@ -65,13 +65,57 @@ class ZeroOneKnapsack{
             dp[n][l] = recur(w, v, l, n-1);
             return dp[n][l];
         } 
+
+        // Top-Down -----------------------------------------------
+        // Take the variables whose values are changing and create a 
+        // matrix to store results of sub problems
+        // Here weight limit and size of array are changing
+        // Initialize the first row (as n == 0) and first 
+        // column (as w == 0) with the return 
+        // value of base condition (In this case 0)
+        
+        int topDown(){
+            // Base case
+            int n = weights.size();
+            int l = limit;
+            int dp[n+1][l+1];
+            for(int i=0;i<n+1;i++){
+                for(int j=0;j<l+1;j++){
+                    if(i==0 || j==0) dp[i][j] = 0;
+                }
+            }
+
+            // Code for different choices
+
+            for(int i=1;i<n+1;i++){
+                for(int j=1;j<l+1;j++){
+                    if(weights[i-1]<=j){
+                        // We will take the max value between the weights of
+                        // including the current item and excluding the current item
+                        dp[i][j] = max(values[i-1]+dp[i-1][j-weights[i-1]], dp[i-1][j]);
+                    }
+                    else{
+                       dp[i][j] = dp[i-1][j]; 
+                    }
+                }
+            }
+
+            
+            
+            return dp[n][l];
+        } 
+        
+
         
         void solve(){
 
             int maxProfit = 0;
             int n = weights.size();
-            // maxProfit = recur(weights, values, limit, n);
+            maxProfit = recur(weights, values, limit, n);
+            cout<<"Max profit is: "<<maxProfit<<endl;
             maxProfit = memoization(weights, values, limit, n);
+            cout<<"Max profit is: "<<maxProfit<<endl;
+            maxProfit = topDown();
             cout<<"Max profit is: "<<maxProfit<<endl;
         }
 
