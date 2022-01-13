@@ -106,7 +106,7 @@ class ZeroOneKnapsack{
         } 
         
 
-        
+
         void solve(){
 
             int maxProfit = 0;
@@ -125,4 +125,14 @@ int main(){
     memset(dp, -1, sizeof(dp));
     ZeroOneKnapsack s;
     s.solve();
+
+    /*
+    Knapsack like other problems
+    1. Subset sum problem
+    2. Equal sum partition
+    3. Count of subset sum
+    4. Minimum subset sum difference
+    5. Target sum
+    6. No. of subset sums of given difference
+    */
 }
