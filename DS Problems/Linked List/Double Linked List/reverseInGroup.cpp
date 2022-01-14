@@ -69,7 +69,7 @@ class LinkedList {
             if(count>=k){
                 Node *rest = reverseUtil(cur, k);
                 hd->next = rest;
-                if(rest) rest->prev = head;
+                if(rest) rest->prev = hd;
             }
 
             return nh;
