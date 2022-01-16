@@ -143,7 +143,7 @@ class Tree{
 
         if(kN){
             int x = tp->data;
-            deleteUtils(kN);
+            deleteUtils(tp);
             kN->data = x;
         }
     }
@@ -162,6 +162,6 @@ int main(){
     cout<<endl;
     t.postorder(t.root);
     cout<<endl;
-    t.deleteNode(18);
+    t.deleteNode(9);
     t.display_BFS();
 }

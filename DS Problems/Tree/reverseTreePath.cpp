@@ -20,9 +20,10 @@ struct Node{
 class Tree{
     public:
 
-    Node *root;
+    Node *root = NULL;
 
     Tree(int val){
+        root = new Node();
         root->data = val;
         root->right = root->left = NULL;
     }
