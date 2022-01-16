@@ -22,8 +22,8 @@ class GivenDifSubsetCount{
 
             for(int i=0;i<n+1;i++){
                 for(int j=0;j<t+1;j++){
-                    if(j==0) dp[i][j] = true;
-                    else if(i==0) dp[i][j] = false;
+                    if(j==0) dp[i][j] = 1;
+                    else if(i==0) dp[i][j] = 0;
                 }
             }
 
