@@ -20,9 +20,10 @@ struct Node{
 class Tree{
     public:
 
-    Node *root;
+    Node *root = NULL;
 
     Tree(int val){
+        root = new Node();
         root->data = val;
         root->right = root->left = NULL;
     }
@@ -66,18 +67,27 @@ class Tree{
         inorder(head->right);
     }
 
+    int sum(Node *node){
+        if (node == NULL)
+            return 0;
+
+        return sum(node->left) + node->data +
+               sum(node->right);
+    }
+
+
     int checkUtils(Node *node){
 
-        if(!node || (!node->left && node->right)) return 1;
+        if(!node || (!node->left && !node->right)) return 1;
 
-        int left = checkUtils(node->left);
-        int right = checkUtils(node->right);
+        int left = sum(node->left);
+        int right = sum(node->right);
 
-        if(!left and !right) return node->data;
+        if(!left and !right) return 1;
         else if(node->data == left+right 
         && checkUtils(node->left) 
         && checkUtils(node->right)) return 1;
-        return 1;
+        return 0;
     }
 
     void checkIfSumTree(){
