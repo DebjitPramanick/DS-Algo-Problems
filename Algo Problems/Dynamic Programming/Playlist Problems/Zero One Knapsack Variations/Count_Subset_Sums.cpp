@@ -49,7 +49,7 @@ class CountSubsetSums{
 
             for(int i=1;i<n+1;i++){
                 for(int j=1;j<t+1;j++){
-                    if(nums[i-1]<=j) dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]];
+                    if(nums[i-1]<=j) dp[i][j] = dp[i-1][j] + dp[i][j-nums[i-1]];
                     else dp[i][j] = dp[i-1][j];
                 }
             }
