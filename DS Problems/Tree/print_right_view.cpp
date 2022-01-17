@@ -71,7 +71,7 @@ public:
         inorder(head->right);
     }
 
-    void displayLeftView(){
+    void displayRightView(){
         queue<Node *> q;
         map<int, int> mp;
         map<Node *, int> mpt;
@@ -110,6 +110,6 @@ int main()
 
     t.inorder(t.root);
     cout << endl;
-    t.displayLeftView();
+    t.displayRightView();
 
 }
