@@ -113,12 +113,12 @@ public:
 int main()
 {
     Tree t(1);
-    for (int i = 2; i < 8; i++)
+    for (int i = 2; i < 14; i++)
     {
         t.insert(i);
     }
 
     t.inorder(t.root);
     cout << endl;
-    t.printCousins(t.root->right->right);
+    t.printCousins(t.root->right->left->left);
 }
