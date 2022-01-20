@@ -43,6 +43,10 @@ class LCS{
         void solve(){
             int ans;
             ans = topdown(x.size(), y.size()); // Length of LCS
+            // We will get the max length of scs by simply
+            // merging both the strings
+            // Then we will substract the length of lcs 
+            // to get min length of scs
             ans = (x.size()+y.size()) - ans;
             cout<<"SCS length is: "<<ans<<endl;
         }

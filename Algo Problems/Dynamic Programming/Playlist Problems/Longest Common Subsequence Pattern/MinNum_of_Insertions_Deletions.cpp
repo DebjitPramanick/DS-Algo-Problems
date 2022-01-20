@@ -43,6 +43,12 @@ class LCS{
         void solve(){
             int lcs;
             lcs = topdown(x.size(), y.size()); // Length of LCS
+
+            // Find lcs fo both strings
+            // Get the difference in length between first string and lcs, which
+            // will be the min number of deletions
+            // Get the difference in length between second string and lcs, which
+            // will be the min number of insertions
             int minD = x.size()-lcs;
             int minI = y.size()-lcs;
             cout<<"Min deletions needed: "<<minD<<endl;
