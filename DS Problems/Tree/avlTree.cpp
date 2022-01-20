@@ -79,7 +79,7 @@ public:
             return rightRotate(root);
         }
 
-        if(bf<-1 && val>root->left->data){
+        if(bf<-1 && val>root->right->data){
             // Right-Right Case
             return lefttRotate(root);
         }
@@ -90,7 +90,7 @@ public:
             return rightRotate(root);
         }
 
-        if(bf<-1 && val<root->left->data){
+        if(bf<-1 && val<root->right->data){
             // Right-Left Case
             root->right = rightRotate(root->right);
             return lefttRotate(root);
