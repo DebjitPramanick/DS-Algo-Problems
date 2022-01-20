@@ -2,13 +2,13 @@
 using namespace std;
 
 /*
-Given two strings. Find Shortest common supersequence 
-from both strings.
+Given two strings. Find min number of insertions
+to make string a as b.
 
 Ex:
-s1: geek
-s2: eke
-SCS: geeke <- Supersequence (Both s1 and s2 are present)
+s1: heap
+s2: pea
+Ans: 1 I, 2 D
 */
 
 class LCS{
@@ -41,10 +41,12 @@ class LCS{
         }
 
         void solve(){
-            int ans;
-            ans = topdown(x.size(), y.size()); // Length of LCS
-            ans = (x.size()+y.size()) - ans;
-            cout<<"SCS length is: "<<ans<<endl;
+            int lcs;
+            lcs = topdown(x.size(), y.size()); // Length of LCS
+            int minD = x.size()-lcs;
+            int minI = y.size()-lcs;
+            cout<<"Min deletions needed: "<<minD<<endl;
+            cout<<"Min insertions needed: "<<minI<<endl;
         }
 
 };
