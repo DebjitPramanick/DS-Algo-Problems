@@ -36,7 +36,7 @@ void findMSTPrim(int n, vector<pair<int, int>> adj[])
             {
                 parent[v] = u;
                 key[v] = wt;
-                if(key[v]=wt){
+                if(key[v]==wt){
                     pq.push({key[v], v});
                 }
             }
