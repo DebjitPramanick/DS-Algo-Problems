@@ -10,7 +10,7 @@ a: acbcbda
 Output: True
 */
 
-class MinInsertions{
+class MCM{
     private:
         string x = "acbcbda";
     public:
@@ -51,6 +51,6 @@ class MinInsertions{
 };
 
 int main(){
-    MinInsertions s;
+    MCM s;
     s.solve();
 }
