@@ -49,7 +49,7 @@ void colourGraph(vector<int> adj[], int n){
         // Resetting
 
         for(auto it: adj[i]){
-            if(colour[i]!=-1){
+            if(colour[it]!=-1){
                 available[colour[it]] = 0;
             }
         }
