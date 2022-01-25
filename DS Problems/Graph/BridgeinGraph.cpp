@@ -1,7 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-
 void findBridges(int node, int parent, vector<int> &vis, vector<int> &tin, vector<int> &low, int &timer,vector<int> adj[]){
     vis[node] = 1;
     tin[node] = low[node] = timer++;
