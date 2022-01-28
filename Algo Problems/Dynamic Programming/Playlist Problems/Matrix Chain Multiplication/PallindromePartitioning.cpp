@@ -58,7 +58,14 @@ class MCM{
             // Code for different choices
             int mn = INT_MAX;
             for(int k=i;k<=j-1;k++){
-                int temp = memoization(str, i, k) + memoization(str, k+1, j) + 1;
+                int left, right;
+
+                if(dp[i][k]!=-1) left = dp[i][k];
+                else left = memoization(str, i, k);
+
+                if(dp[k+1][j]!=-1) right = dp[k+1][j];
+                else right = memoization(str, k+1, j);
+                int temp = left + right + 1;
                 mn = min(mn, temp);
             }
             return dp[i][j] = mn;
