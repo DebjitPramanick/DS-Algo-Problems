@@ -17,7 +17,7 @@ Output: 26000
 int static dp[1002][1002];
 class MCM{
     private:
-        string s = "abcde";
+        string s = "nitik";
     public:
 
         bool isPalindrome(string &str, int i, int j){
@@ -47,9 +47,28 @@ class MCM{
             return mn;
         }
 
+        // Recursion ---------------------------------------
+        int memoization(string &str, int i, int j){
+
+            // Base case
+            if(i>=j) return 0;
+            if(dp[i][j] != -1) return dp[i][j];
+            if(isPalindrome(str, i, j)) return 0;
+
+            // Code for different choices
+            int mn = INT_MAX;
+            for(int k=i;k<=j-1;k++){
+                int temp = memoization(str, i, k) + memoization(str, k+1, j) + 1;
+                mn = min(mn, temp);
+            }
+            return dp[i][j] = mn;
+        }
+
         void solve(){
             int ans;
             ans = rec(s, 0, s.size()-1);
+            cout<<"Min partitioning is: "<<ans<<endl;
+            ans = memoization(s, 0, s.size()-1);
             cout<<"Min partitioning is: "<<ans<<endl;
         }
 
