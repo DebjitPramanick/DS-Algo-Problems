@@ -60,7 +60,7 @@ void adjList(int n, int m){
     } 
 
     bool bp =  isBipartite(n, adj);
-    if(bp) cout<<"Graph is bipartite.";
+    if(!bp) cout<<"Graph is bipartite.";
     else cout<<"Graph is not bipartite.";
 }
 
