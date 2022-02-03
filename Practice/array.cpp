@@ -11,28 +11,21 @@ public:
         v = _v;
     }
 
-    void solve(int k)
-    {
-        int s = 0, e = v.size()-1;
-        int f = 0;
+    void solve(vector<int> ind){
+        
+        int n = v.size();
+        for(int i=0;i<n;i++){
+            while(ind[i]!=i){
+                int oX = ind[ind[i]];
+                int oV = v[ind[i]];
 
-        while(s<=e){
-            int mid = (s+e)/2;
-            if(v[mid]<v[(mid+1)%n] && v[mid]>v[mid-1]) {
-                cout<<"Rotation count: "<<mid<<endl;
-                f = 1;
-                break;
-            }
-            else if(v[mid]>v[mid+1]){
-                if(v[s]>k) s = mid+1;
-                else e = mid-1;
-            }
-            else{
-                s = mid+1;
+                ind[ind[i]] = ind[i];
+                v[ind[i]] = v[i];
+
+                v[i] = oV;
+                ind[i] = oX;
             }
         }
-        if(!f) cout<<"Not found."<<endl;
-        
     }
 
     void display()
@@ -48,7 +41,20 @@ public:
 
 int main()
 {
-    Solution s({5, 8, 9, 1, 3, 4});
-    s.solve(5);
+    Solution s({50, 40, 70, 60, 90});
+    s.solve({3,  0,  4,  1,  2});
     s.display();
 }
+
+/*
+
+curIdx = 0
+curEl = 50
+
+oldIdx = ind[ind[i]] = 1
+oldVal = v[ind[i]] = 60
+
+newIdx = 
+
+
+*/
