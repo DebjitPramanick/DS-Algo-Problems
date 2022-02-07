@@ -3,10 +3,23 @@ using namespace std;
 typedef pair<int, int> pi;
 typedef pair<int, pair<int, int>> ppi;
 
+struct node
+{
+    int u;
+    int v;
+    int wt;
+    node(int first, int second, int weight){
+        u = first;
+        v = second;
+        wt = weight;
+    }
+};
+
 class Graph{
     int m = 0;
     int n = 0;
     vector<vector<int>> graph;
+    vector<node> edges;
 
     public:
     Graph(int _m, int _n){
@@ -19,42 +32,45 @@ class Graph{
             int u, v, wt;
             cin>>u;
             cin>>v;
+            cin>>wt;
             graph[u].push_back(v);
             graph[v].push_back(u);
+            edges.push_back(node(u, v, wt));
             cout<<"-------"<<endl;
         }
     }
 
-    void findBridge();
+    void solve();
 };
 
-void dfs(int node, int parent, vector<int> &low, vector<int> &tin, int timer, vector<int> &vis, vector<vector<int>> graph){
-    vis[node] = 1;
-    tin[node] = low[node] = timer++;
 
-    for(auto it: graph[node]){
-        if(!vis[it]){
-            dfs(it, node, low, tin, timer, vis, graph);
-            low[node] = min(low[it], low[node]);
-            if(low[it]>tin[node]){
-                cout<<node<<" - "<<it<<endl;
+void Graph::solve(){
+    vector<int> color(n+1, -1);
+    int cn = 0;
+
+    vector<int> av(n+1, 0);
+
+    for(int i=1;i<=n;i++){
+        for(auto it: graph[i]){
+            if(color[it]!=-1){
+                av[color[it]] = 1;
             }
-            else{
-                low[node] = min(low[node], low[it]);
+        }
+
+        int cr = 0;
+        for(cr = 0; cr<n;cr++){
+            if(!av[cr]) break;
+        }
+
+        color[i] = cr;
+        cn = min(cn, cr+1);
+
+        for(auto it: graph[i]){
+            if(color[it]!=-1){
+                av[color[it]] = 0;
             }
         }
     }
-}
-
-void Graph::findBridge(){
-   vector<int> low(n+1, -1), tin(n+1, -1), vis(n+1, 0);
-   int timer = 0;
-
-   for(int i=1;i<=n;i++){
-       if(!vis[i]){
-           dfs(i, -1, low, tin, timer, vis, graph);
-       }
-   }
 }
 
 
@@ -65,5 +81,5 @@ int main(){
     cin>>n;
     Graph g(m, n);
     // g.display();
-    g.findBridge();
+    g.solve();
 }
