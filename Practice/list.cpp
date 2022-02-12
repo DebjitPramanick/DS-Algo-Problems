@@ -55,27 +55,77 @@ class List{
         return NULL;
     }
 
-    void reverse(){
-        Node *temp = head, *p, *q = NULL;
-        while(temp){
-            p = temp->next;
-            temp->next = q;
-            q = temp;
-            temp = p;
+    Node* partition(Node *h, Node* end, Node** nh, Node** ne){
+        Node* pivot = end;
+        Node *tail = end, *cur = h, *prev = NULL;
+
+        while(cur!=pivot){
+            if(cur->val < pivot->val){
+                if(!(*nh)) (*nh) = cur;
+                prev = cur;
+                cur = cur->next;
+            }
+            else{
+                if(prev) prev->next = cur->next;
+                Node* tmp = cur->next;
+                cur->next = NULL;
+                tail->next = cur;
+                tail = cur;
+                cur = tmp;
+            }
         }
-        head = q;
+
+        if(!(*nh)) (*nh) = pivot;
+        (*ne) = tail;
+        return pivot;
+    }
+
+    Node *getTail(Node *h){
+        while(h && h->next) h = h->next;
+        return h;
+    }
+
+    Node* qs(Node *h, Node* end){
+        if(!h || h == end) return h;
+        Node *nh = NULL, *ne = NULL;
+        Node* pivot = partition(h, end, &nh, &ne);
+
+        if(nh!=pivot){
+            Node* temp = nh;
+            while(temp->next != pivot) temp = temp->next;
+            temp->next = NULL;
+            nh = qs(nh, temp);
+            temp = getTail(nh);
+            temp->next = pivot;
+        }
+
+        pivot->next = qs(pivot->next, ne);
+        return nh;
+    }
+
+    void sort(){
+        if(!head) return;
+        Node **hRef = &head;
+        (*hRef) = qs(*hRef, getTail(head));
     }
 
 };
 
 int main(){
     List l;
-    srand(time(NULL));
-    for(int i=1;i<=7;i++){
-        int b = rand()%10;
-        l.insert(i*6);
-    }
+    // srand(time(NULL));
+    // for(int i=1;i<=7;i++){
+    //     int b = rand()%10;
+    //     l.insert(b);
+    // }
+
+    l.insert(5);
+    l.insert(3);
+    l.insert(2);
+    l.insert(6);
+    l.insert(4);
+    l.insert(7);
     l.display();
-    l.reverse();
+    l.sort();
     l.display();
 }
