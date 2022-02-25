@@ -58,38 +58,44 @@ class Tree{
     }
 };
 
-Node* util(Node* node, int k, map<int, int> &mp, int l, int &np){
-    if(!node) return NULL;
-    if(node->val == k){
-        mp[l] = node->val;
-        node->val = mp[np++];
-        return node;
-    }
+void util(Node* node, string res){
 
-    mp[np] = node->val;
 
-    Node *left, *right;
-    left = util(node->left, k, mp, l+1, np);
-    if(!left) right = util(node->right, k, mp, l+1, np);
-    if(left || right) {
-        node->val = mp[np++];
-        return left ? left : right;
-    }
-
-    return NULL;
 }
 
-void solve(Node* root, int k){
-    map<int, int> mp;
-    int np = 0;
-    root = util(root, k, mp, 0, np);
+void solve(Node* root){
+    
+    map<int, Node*> mp;
+    queue<pair<Node*, int>> q;
+
+    vector<Node*> ans;
+    q.push({root, 1});
+    mp[1] = root;
+
+    while(!q.empty()){
+        Node* f = q.front().first;
+        int dis = q.front().second;
+        q.pop();
+
+        if(mp.find(dis)==mp.end()) mp[dis] = f;
+
+        if(f->left){
+            q.push({f->left, dis-1});
+        }
+        if(f->right){
+            q.push({f->right, dis+1});
+        }
+    }
+
+    for(auto it: mp) cout<<it.second->val<<" ";
+
 }
 
 
 int main(){
-    Tree t(2);
+    Tree t(1);
     srand(time(NULL));
-    for(int i=1;i<7;i++) t.insert(rand()%100);
+    for(int i=2;i<=7;i++) t.insert(i);
     t.display();
-    solve(t.root, 8);
+    solve(t.root);
 }

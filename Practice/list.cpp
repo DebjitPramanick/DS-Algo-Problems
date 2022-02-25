@@ -3,10 +3,11 @@ using namespace std;
 
 struct Node{
     int val;
-    Node* next;
+    Node *next, *prev;
     Node(int v){
         val = v;
         next = NULL;
+        prev = NULL;
     }
 };
 
@@ -22,6 +23,7 @@ class List{
             Node* temp = head;
             while (temp->next) temp = temp->next;
             temp->next = new Node(v);
+            temp->next->prev = temp;
         }
     }
 
@@ -55,77 +57,53 @@ class List{
         return NULL;
     }
 
-    Node* partition(Node *h, Node* end, Node** nh, Node** ne){
-        Node* pivot = end;
-        Node *tail = end, *cur = h, *prev = NULL;
-
-        while(cur!=pivot){
-            if(cur->val < pivot->val){
-                if(!(*nh)) (*nh) = cur;
-                prev = cur;
-                cur = cur->next;
-            }
-            else{
-                if(prev) prev->next = cur->next;
-                Node* tmp = cur->next;
-                cur->next = NULL;
-                tail->next = cur;
-                tail = cur;
-                cur = tmp;
-            }
-        }
-
-        if(!(*nh)) (*nh) = pivot;
-        (*ne) = tail;
-        return pivot;
-    }
-
-    Node *getTail(Node *h){
-        while(h && h->next) h = h->next;
-        return h;
-    }
-
-    Node* qs(Node *h, Node* end){
-        if(!h || h == end) return h;
-        Node *nh = NULL, *ne = NULL;
-        Node* pivot = partition(h, end, &nh, &ne);
-
-        if(nh!=pivot){
-            Node* temp = nh;
-            while(temp->next != pivot) temp = temp->next;
-            temp->next = NULL;
-            nh = qs(nh, temp);
-            temp = getTail(nh);
-            temp->next = pivot;
-        }
-
-        pivot->next = qs(pivot->next, ne);
-        return nh;
-    }
-
-    void sort(){
+    void swap(int k){
         if(!head) return;
-        Node **hRef = &head;
-        (*hRef) = qs(*hRef, getTail(head));
+        int c = 0;
+        Node *first = head, *last = head, *temp = head, *pf = NULL, *pl = NULL;
+        while(temp){
+            c++;
+            temp = temp->next;
+        }
+        while(last->next) last = last->next;
+        for(int i=1;i<k;i++){
+            pf = first;
+            first = first->next;
+        }
+
+        for(int i=c;i>c-k+1;i--){
+            pl = last;
+            last = last->prev;
+        }
+
+        if(!pf && !pl){
+            last->next = first->next;
+            first->prev = last->prev;
+            first->next = NULL;
+            last->prev = NULL;
+        }
+        else if(!pf){
+            last->next = first->next;
+            first->prev = last->prev;
+            first->next = pl;
+            last->prev->next = first;
+            last->prev = NULL;
+            pl->prev = first;
+        }
+
     }
 
 };
 
 int main(){
     List l;
-    // srand(time(NULL));
-    // for(int i=1;i<=7;i++){
-    //     int b = rand()%10;
-    //     l.insert(b);
-    // }
+    srand(time(NULL));
+    for(int i=1;i<=7;i++){
+        int b = rand()%10;
+        l.insert(i*2);
+    }
 
-    l.insert(5);
-    l.insert(3);
-    l.insert(2);
-    l.insert(6);
-    l.insert(4);
-    l.insert(7);
     l.display();
-    l.sort();
+    l.swap(1);
     l.display();
 }

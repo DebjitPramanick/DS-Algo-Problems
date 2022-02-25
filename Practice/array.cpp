@@ -7,32 +7,31 @@ class Solution
     string s;
 
 public:
-    Solution(string _s)
+    Solution(vector<int> _v)
     {
-        s = _s;
+        v = _v;
     }
 
-    void solve(vector<vector<int>> M){
-        int n = M.size();
-        int dp[n+2][n+2];
-
-        memset(dp, 0, sizeof(dp));
-
-        for(int i=1;i<n+1;i++){
-            for(int j=1;j<n+1;j++){
-                dp[i][j] = M[i-1][j-1] + max(dp[i-1][j-1], max(dp[i][j-1], dp[i+1][j-1]));
-            }
+    int search(int k, int s, int e){
+        while(s<e){
+            int mid = (s+e)/2;
+            if(v[mid] == k) return mid;
+            else if(v[mid]<k) s = mid+1;
+            else e = mid-1;
         }
+        return -1;
+    }
 
-        for(int i=0;i<n+2;i++){
-            for(int j=0;j<n+2;j++){
-                cout<<dp[i][j]<<" ";
+    void solve(int k){
+        for(int i=0;i<v.size()-1;i++){
+            int cur = v[i];
+            int j = i-1;
+            while(v[j]>cur and j>=j-k and j>=0){
+                v[j+1] = v[j];
+                j--;
             }
-            cout<<endl;
+            v[j+1] = cur;
         }
-
-        cout<<"LCS is: "<<dp[n][n]<<endl;
-
     }
 
     void display()
@@ -48,10 +47,8 @@ public:
 
 int main()
 {
-    vector<vector<int>> M = {{1, 3, 3},
-                             {2, 1, 4},
-                             {0, 6, 4}};
-    Solution s("abcde");
-    s.solve(M);
+    vector<int> M = {10, -10, 20, -40};
+    Solution s(M);
+    s.solve(3);
     // s.display();
 }
