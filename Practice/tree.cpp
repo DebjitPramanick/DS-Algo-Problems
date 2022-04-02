@@ -58,44 +58,34 @@ class Tree{
     }
 };
 
-void util(Node* node, string res){
+Node* utils(int in[], int post[], int s, int e, int *index, map<int, int> &mp){
+    if(s>e) return NULL;
+    int cur = post[*index];
+    Node* node = new Node(cur);
+    (*index)--;
 
+    if(s == e) return node;
 
+    int inIndex = mp[cur];
+    Node* l = utils(in, post, s, inIndex-1, index, mp);
+    Node* r = utils(in, post, inIndex+1, e, index, mp);
+
+    return node;
 }
 
-void solve(Node* root){
-    
-    map<int, Node*> mp;
-    queue<pair<Node*, int>> q;
-
-    vector<Node*> ans;
-    q.push({root, 1});
-    mp[1] = root;
-
-    while(!q.empty()){
-        Node* f = q.front().first;
-        int dis = q.front().second;
-        q.pop();
-
-        if(mp.find(dis)==mp.end()) mp[dis] = f;
-
-        if(f->left){
-            q.push({f->left, dis-1});
-        }
-        if(f->right){
-            q.push({f->right, dis+1});
-        }
-    }
-
-    for(auto it: mp) cout<<it.second->val<<" ";
-
+Node* solve(int in[], int post[], int n){
+    map<int, int> mp;
+    for(int i=0;i<n;i++) mp[in[i]] = i;
+    int index = n-1;
+    return utils(in, post, 0, n-1, &index, mp);
 }
 
 
 int main(){
-    Tree t(1);
-    srand(time(NULL));
-    for(int i=2;i<=7;i++) t.insert(i);
-    t.display();
-    solve(t.root);
+    int in[] = { 3, 5, 6, 7, 8, 9, 10 };
+    int post[] = { 3, 6, 5, 8, 10, 9, 7 };
+    int len = sizeof(in) / sizeof(in[0]);
+
+    Node *root = solve(in, post, len);
+    
 }

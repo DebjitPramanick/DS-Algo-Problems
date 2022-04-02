@@ -15,6 +15,11 @@ class List{
     Node* head = NULL;
 
     public:
+
+    Node* getHead(){
+        return head;
+    }
+
     void insert(int v){
         if(!head){
             head = new Node(v);
@@ -57,40 +62,23 @@ class List{
         return NULL;
     }
 
-    void swap(int k){
-        if(!head) return;
-        int c = 0;
-        Node *first = head, *last = head, *temp = head, *pf = NULL, *pl = NULL;
-        while(temp){
-            c++;
+    void rotate(int k){
+        int n = count();
+        Node* temp = head;
+        int i;
+        for(i=1;i<=k;i++){
             temp = temp->next;
         }
-        while(last->next) last = last->next;
-        for(int i=1;i<k;i++){
-            pf = first;
-            first = first->next;
+        Node* nh = temp;
+        while(temp && temp->next){
+            temp=temp->next;
         }
 
-        for(int i=c;i>c-k+1;i--){
-            pl = last;
-            last = last->prev;
-        }
-
-        if(!pf && !pl){
-            last->next = first->next;
-            first->prev = last->prev;
-            first->next = NULL;
-            last->prev = NULL;
-        }
-        else if(!pf){
-            last->next = first->next;
-            first->prev = last->prev;
-            first->next = pl;
-            last->prev->next = first;
-            last->prev = NULL;
-            pl->prev = first;
-        }
-
+        temp->next = head;
+        head->prev = temp;
+        nh->prev->next = NULL;
+        nh->prev = NULL;
+        head = nh;
     }
 
 };
@@ -104,6 +92,6 @@ int main(){
     }
 
     l.display();
-    l.swap(1);
+    l.rotate(2);
     l.display();
 }
