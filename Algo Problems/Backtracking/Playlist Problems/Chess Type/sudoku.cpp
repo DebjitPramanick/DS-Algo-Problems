@@ -30,37 +30,44 @@ class Solution{
             }
             int rs=(row/3)*3, cs=(col/3)*3;
 
-            for(int i=rs;i<rs+3;i++){
-                for(int j=cs;j<cs+3;j++){
+            for(int i=0;i<3;i++){
+                for(int j=0;j<3;j++){
                     if(board[i+rs][j+cs]==num) return false;
                 }
             }
             return true;
         }
 
-        void util(int row){
-            if(solved){
-                return;
-            }
+        void util(int row, int col){
+            if(solved) return;
             if(row == size){
                 displayBoard();
                 solved = true;
                 return;
             }
-            for(int j=0;j<size;j++){
-                if(board[row][j]!=0) continue;
+            int nr = 0, nc = 0;
+            if(col == size-1) {
+                nr = row+1;
+                nc = 0;
+            } else{
+                nr = row;
+                nc = col+1;
+            }
+
+            if(board[row][col]!=0) util(nr, nc);
+            else{
                 for(int n=1;n<=9;n++){
-                    if(isSafe(row, j, n)){
-                        board[row][j] = n;
-                        util(row+1);
-                        board[row][j] = 0;
+                    if(isSafe(row, col, n)){
+                        board[row][col] = n;
+                        util(nr, nc);
+                        board[row][col] = 0;
                     }
                 }
             }
         }
 
         void solve(){
-            util(0);
+            util(0, 0);
         }
 };
 
