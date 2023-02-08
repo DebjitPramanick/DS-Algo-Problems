@@ -39,7 +39,7 @@ class CoinChange{
                         // store the number of those coins required
                         // to make the sum
                         // Do it for whole matrix
-                        dp[i][j] = j/coins[0];
+                        dp[i][j] = j/coins[i-1];
                     }
                     else{
                        dp[i][j] = INT_MAX - 1;
