@@ -1,1 +1,0 @@
-<img src="./fence.png">
