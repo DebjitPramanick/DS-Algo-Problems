@@ -18,7 +18,7 @@ int main(){
 
     for(int i=0;i<coins.size();i++){
         ans+=target/coins[i];
-        target-=target/coins[i]*coins[i];
+        target-=(target/coins[i])*coins[i];
     }
 
     cout<<"Min coins required: "<<ans<<endl;

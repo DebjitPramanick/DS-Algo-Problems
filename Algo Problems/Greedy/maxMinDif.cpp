@@ -5,7 +5,7 @@ using namespace std;
 You are given an array, A, of n elements. You have to remove exactly
 n/2 elements from array A and add it to another array B(initially empty)
 
-Find the max ad min values of differences between these two arrays.
+Find the max and min values of differences between these two arrays.
 We define the difference between these two arrays as:
 Σabs(A[i]-B[i])
 */
