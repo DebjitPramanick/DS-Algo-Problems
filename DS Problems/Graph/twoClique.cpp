@@ -42,20 +42,20 @@ bool isBipartite(int n, vector<int> adj[]){
 
 void checkForTwoParts(int n, vector<int> adj[]){
     vector<int> reverse[n+1];
-    vector<int> dummy(n+1, 0);
+    vector<int> isAdjacent(n+1, 0);
 
     for(int i=1;i<=n;i++){
-        dummy[i] = 1;
-        for(auto it: adj[i]) dummy[it] = 1;
+        isAdjacent[i] = 1;
+        for(auto it: adj[i]) isAdjacent[it] = 1;
         for(int j=1;j<=n;j++){ 
             // Check which nodes are not adjacent to current node i,
             // and push those nodes as adjacent nodes of node i
-            if(dummy[j]==0){
+            if(isAdjacent[j]==0){
                 reverse[i].push_back(j);
                 reverse[j].push_back(i);
             }
         }
-        dummy.clear();
+        isAdjacent.clear();
     }
 
     bool flag = isBipartite(n, reverse);
