@@ -20,7 +20,7 @@ struct Node{
 class Tree{
     public:
 
-    Node *root;
+    Node *root = new Node();
 
     Tree(int val){
         root->data = val;
