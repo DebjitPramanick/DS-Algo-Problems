@@ -58,11 +58,11 @@ class ZeroOneKnapsack{
             if(w[n-1]<=l){
                 // We will take the max value between the weights of
                 // including the current item and excluding the current item
-                dp[n][l] = max(v[n-1]+recur(w, v, l-w[n-1], n-1), recur(w, v, l, n-1));
+                dp[n][l] = max(v[n-1]+memoization(w, v, l-w[n-1], n-1), memoization(w, v, l, n-1));
                 return dp[n][l];
             }
 
-            dp[n][l] = recur(w, v, l, n-1);
+            dp[n][l] = memoization(w, v, l, n-1);
             return dp[n][l];
         } 
 
