@@ -30,7 +30,7 @@ class Node {
 
 
 class LinkedList {
-    Node *head;
+    Node *head = new Node();
     public:
         LinkedList(){
             head = NULL;
@@ -40,6 +40,7 @@ class LinkedList {
             Node *newNode = new Node();
             newNode->val = v;
             newNode->next = NULL;
+            newNode->arb = NULL;
             if(!head){
                 head = newNode;
                 cout<<"Item inserted."<<endl;
@@ -63,10 +64,10 @@ class LinkedList {
             while(temp){
                 i++;
                 if(temp->arb){
-                    cout<<temp->val<<"(Arb: "<<temp->arb->val<<") -->";
+                    cout<<temp->val<<" (Arb: "<<temp->arb->val<<") --> ";
                 }
                 else{
-                    cout<<temp->val<<" -->";
+                    cout<<temp->val<<" --> ";
                 }
                 
                 temp = temp->next;
@@ -86,14 +87,14 @@ class LinkedList {
 
             cur = head;
 
-            while(cur){
+            while(cur && cur->next){
                 cur->next->arb = cur->arb ? cur->arb->next : cur->arb;
                 cur = cur->next->next;
             }
 
             Node *original = head;
             Node *copy = head->next;
-            temp = copy;
+            temp = head;
             while(original and copy){
                 original->next = original->next->next;
                 copy->next = copy->next ? copy->next->next : copy->next;
@@ -109,10 +110,10 @@ class LinkedList {
             while(temp){
                 i++;
                 if(temp->arb){
-                    cout<<temp->val<<"(Arb: "<<temp->arb->val<<") -->";
+                    cout<<temp->val<<" (Arb: "<<temp->arb->val<<") --> ";
                 }
                 else{
-                    cout<<temp->val<<" -->";
+                    cout<<temp->val<<" --> ";
                 }
                 
                 temp = temp->next;
