@@ -12,7 +12,7 @@ class Node {
 
 
 class LinkedList {
-    Node *head;
+    Node *head = new Node();
     public:
         LinkedList(){
             head = NULL;
