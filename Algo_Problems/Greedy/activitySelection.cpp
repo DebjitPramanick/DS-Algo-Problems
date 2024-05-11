@@ -5,7 +5,7 @@ using namespace std;
 You are given n activities with their start and end time.
 Select the max number of activities that can be performed 
 by a single person, assuming that a person can only work
-on a single activity at a time.
+on a single activity at a time. 
 */
 
 int main(){
