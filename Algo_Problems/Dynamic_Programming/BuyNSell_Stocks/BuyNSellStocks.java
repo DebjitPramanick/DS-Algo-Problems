@@ -24,6 +24,16 @@ class Solution {
         System.out.println("Max profit ==> " + profit);
     }
 
+    public void withAnyTransactions() {
+        int profit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > prices[i - 1]) {
+                profit += (prices[i] - prices[i - 1]);
+            }
+        }
+        System.out.println("Max profit: " + profit);
+    }
+
     public void withTwoTransactions() {
         int n = prices.length;
         int k = 2;
@@ -38,8 +48,11 @@ class Solution {
             int max_profit = Integer.MIN_VALUE;
             for (int j = 1; j < n; j++) {
                 if (dp[i - 1][j - 1] - prices[j - 1] > max_profit)
-                    max_profit = dp[i - 1][j - 1] - prices[j - 1];
+                    max_profit = -prices[j - 1] + dp[i - 1][j - 1]; // Getting max profit after first sell and second
+                                                                    // buy
 
+                // Maximum of not making a transaction (sell) on j th day and selling today
+                // after buying the stock on mth day
                 dp[i][j] = Math.max(dp[i][j - 1], prices[j] + max_profit);
             }
         }
@@ -48,60 +61,14 @@ class Solution {
 
     }
 
-    public void withAnyTransactions() {
-        int n = prices.length;
-
-        int[][] dp = new int[n + 1][2];
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < 2; j++) {
-                dp[i][j] = 0;
-            }
-        }
-
-        for (int i = n - 1; i >= 0; i--) {
-            for (int j = 0; j < 2; j++) {
-                int profit = 0;
-
-                if (j == 1) {
-                    profit = Math.max(dp[i + 1][0] - prices[i], dp[i + 1][1]);
-                } else {
-                    profit = Math.max(dp[i + 1][1] + prices[i], dp[i + 1][0]);
-                }
-
-                dp[i][j] = profit;
-            }
-        }
-
-        System.out.println("Max profit ==> " + dp[0][1]);
-    }
-
     public void withTransactionFees(int fee) {
-        int n = prices.length;
-
-        int[][] dp = new int[n + 1][2];
-
-        for (int i = 0; i <= n; i++) {
-            for (int j = 0; j < 2; j++) {
-                dp[i][j] = 0;
-            }
+        int buy = Integer.MIN_VALUE;
+        int sell = 0;
+        for (int i = 0; i < prices.length; i++) {
+            buy = Math.max(buy, -prices[i] + sell);
+            sell = Math.max(sell, buy + prices[i] - fee);
         }
-
-        for (int i = n - 1; i >= 0; i--) {
-            int profit = 0;
-            for (int j = 0; j < 2; j++) {
-
-                if (j == 1) {
-                    profit = Math.max(dp[i + 1][0] - prices[i] - fee, dp[i + 1][1]);
-                } else {
-                    profit = Math.max(dp[i + 1][1] + prices[i], dp[i + 1][0]);
-                }
-
-                dp[i][j] = profit;
-            }
-        }
-
-        System.out.println("Max profit ==> " + dp[0][1]);
+        System.out.println("Max profit: " + sell);
     }
 
     public void withCoolDown() {
@@ -118,15 +85,15 @@ class Solution {
             int profit;
             for (int j = 0; j < 2; j++) {
                 if (j == 1) {
-                    profit = Math.max(dp[i + 1][0] - prices[i], dp[i + 1][1]);
+                    profit = Math.max(dp[i + 1][0] - prices[i], dp[i + 1][1]); // Max of sell or not sell
                 } else {
-                    profit = Math.max(dp[i + 2][1] + prices[i], dp[i + 1][0]);
+                    profit = Math.max(dp[i + 2][1] + prices[i], dp[i + 1][0]); // Max of buy or not buy
                 }
                 dp[i][j] = profit;
             }
         }
 
-        System.out.println("Max profit: "+dp[0][1]);
+        System.out.println("Max profit: " + dp[0][1]);
     }
 }
 
