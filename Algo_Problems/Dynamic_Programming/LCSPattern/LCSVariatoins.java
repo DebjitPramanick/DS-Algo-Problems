@@ -1,7 +1,5 @@
 package Algo_Problems.Dynamic_Programming.LCSPattern;
 
-import java.util.Collection;
-
 class Solution {
     String a = "", b = "";
 
@@ -10,7 +8,7 @@ class Solution {
         this.b = _b;
     }
 
-    public void findLCS() {
+    public void findLCS() { // Longest Common Subsequence
         int m = a.length(), n = b.length();
         int[][] dp = new int[m + 1][n + 1];
 
@@ -32,7 +30,7 @@ class Solution {
         System.out.println("LCS is: " + dp[m][n]);
     }
 
-    public void findLRS() {
+    public void findLRS() { // Longest Repeating Subsequence
         int m = a.length();
         int ans = Integer.MIN_VALUE;
         int[][] dp = new int[m + 1][m + 1];
@@ -54,7 +52,34 @@ class Solution {
                 ans = Math.max(ans, dp[i][j]);
             }
         }
-        System.out.println("LCS is: " + ans);
+        System.out.println("LRS is: " + ans);
+    }
+
+    public void findLCString() {
+        int m = a.length(), n = b.length();
+        int dp[][] = new int[m + 1][n + 1];
+        int ans = 0;
+
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = 0;
+                }
+            }
+        }
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (a.charAt(i - 1) != b.charAt(j - 1)) {
+                    dp[i][j] = 0;
+                } else {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                }
+                ans = Math.max(ans, dp[i][j]);
+            }
+        }
+
+        System.out.println("LCString is" + ans);
     }
 
 }
@@ -64,5 +89,6 @@ public class LCSVariatoins {
         Solution sol = new Solution("aabebcdd", "abedfhr");
         sol.findLCS();
         sol.findLRS();
+        sol.findLCString();
     }
 }

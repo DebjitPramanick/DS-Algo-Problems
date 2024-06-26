@@ -9,6 +9,10 @@ import java.util.PriorityQueue;
  * Use k-way merge when:
  * - You need to combine multiple sorted arrays or lists
  * - Finding the kth smallest/largest element in sorted arrays
+ * 
+ * If the problem giving K sorted arrays and asks us to perform 
+ * a sorted traversal of all the elements of all arrays, we need 
+ * to think about K-way Merge pattern.
 */
 
 class HeapItem {
